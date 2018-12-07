@@ -12,9 +12,15 @@ PyNLPl, pronounced as 'pineapple', is a Python library for Natural Language Proc
 
 
 
-### keyphrase
+### key-phrase
 
 https://github.com/whqwill/seq2seq-keyphrase-bert
 
 <https://github.com/huggingface/pytorch-pretrained-BERT/files/2623599/RNN.vs.BERT.in.Keyphrase.generation.pdf>
+
+### key-word
+
+https://github.com/aneesha/RAKE
+
+
 
