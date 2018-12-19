@@ -2,6 +2,18 @@ refer: <br>http://ufal.mff.cuni.cz/conll2009-st/task-description.html
 
 
 
+### Install
+
+http://code.google.com/p/mate-tools/ 下载:<br>srl-4.31.tgz<br>CoNLL2009-ST-Chinese-ALL.anna-3.3.parser.model<br>CoNLL2009-ST-Chinese-ALL.anna-3.3.postagger.model<br>CoNLL2009-ST-Chinese-ALL.anna-3.3.srl-4.1.srl.model<br>将模型移至srl-4.31.tgz对应的model目录。
+
+https://nlp.stanford.edu/software/segmenter.shtml 下载:<br>stanford-segmenter-2018-10-16.zip<br>将stanford-segmenter-2018-10-16.zip的data目录下ctb.gz、ctb.prop、dict-chris6.ser.gz及dict文件夹移至srl-4.31.tgz对应的data目录。
+
+修改srl-4.31.tgz的scripts目录下run_http_server.sh对应的语言设置、模型及数据的路径信息。
+
+示例：
+
+[mate-tools](https://github.com/bifeng/nlp_tools/raw/master/chinese_srl)
+
 ### Output
 
 
