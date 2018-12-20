@@ -12,7 +12,7 @@ https://nlp.stanford.edu/software/segmenter.shtml 下载:<br>stanford-segmenter-
 
 示例：
 
-[mate-tools](https://github.com/bifeng/nlp_tools/raw/master/chinese_srl)
+[mate-tools](https://github.com/bifeng/nlp_tools/raw/master/srl_mate)
 
 ### Output
 
