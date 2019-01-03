@@ -3,7 +3,7 @@ import rdflib
 
 g = rdflib.Graph()
 
-url = 'http://192.168.1.97:8072/parse'
+url = 'http://***.***.*.**:****/parse'
 
 params = {'sentence':"我想知道你是谁？",'returnType':'rdf'}
 r = requests.post(url,data=params,  headers={'content-type':'application/x-www-form-urlencoded'})
@@ -18,6 +18,7 @@ for s,p,o in g:
     print(s,p,o)
 
 
+g.parse(data=rdf_out, format='n3')
 output = []
 for s, p, o in g:
     if type(o) == rdflib.term.Literal:
@@ -26,7 +27,7 @@ for s, p, o in g:
 print(', '.join(output))
 
 
-result = g.parse(data=rdf_out, format='n3')
+g.parse(data=rdf_out, format='n3')
 print(len(g))
 for stmt in g:
     print(stmt)
