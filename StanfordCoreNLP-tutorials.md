@@ -51,6 +51,12 @@ output: `{u'sentences': [{u'0': {u'namedNodes': [{u'n1': u'(NP\n  (NP (NNP Harry
 
 
 
+### coref
+
+https://github.com/stanfordnlp/CoreNLP/issues/617
+
+
+
 ### dcoref
 
 
@@ -77,6 +83,19 @@ https://stackoverflow.com/questions/30010340/how-do-i-use-chinese-co-reference-i
 https://github.com/jingyuanz/stanfordnlp_chinese_coreference
 
 
+
+### parse
+
+```python
+import requests
+
+url = 'http://localhost:9000/?properties={"annotators": "parse", "outputFormat": "text"}'
+text='Harry Potter, a young boy, is very famous in US'
+r = requests.post(url, data=text)
+print(r.content)
+```
+
+output: `...`
 
 
 

@@ -6,13 +6,15 @@
 
    download an additional model file and place it in the `.../stanford-corenlp-full-....-..-..` folder. For example, you should download the `stanford-chinese-corenlp-....-..-..-models.jar` file if you want to process Chinese.
 
-3.  go to the path of the unzipped Stanford CoreNLP and execute the below command:
+3. go to the path of the unzipped Stanford CoreNLP and execute the below command:
 
    `java -cp "*" -Xmx2g edu.stanford.nlp.pipeline.StanfordCoreNLP -annotators tokenize,ssplit,pos,lemma,ner,parse,dcoref -file input.txt`
 
    notes:
 
    Test the file `input.txt`, the output will be in the same path.
+
+   The `dcoref` cost too much memory and will lead to this exception-`Exception in thread "main" java.lang.OutOfMemoryError: GC overhead limit exceeded` 
 
 4. run the server using the selected annotators:
 
@@ -27,18 +29,19 @@
 
 5. sending HTTP request
 
-   parse:
+   tregex:
 
    ```python
    import requests
    
-   url = 'http://localhost:9000/?properties={"annotators": "parse", "outputFormat": "text"}'
-   text='Harry Potter, a young boy, is very famous in US'
-   r = requests.post(url, data=text)
-   print(r.content)
+   url = "http://localhost:9000/tregex"
+   request_params = {"pattern": "(NP[$VP]>S)|(NP[$VP]>S\\n)|(NP\\n[$VP]>S)|(NP\\n[$VP]>S\\n)"}
+   text = "Pusheen and Smitha walked along the beach."
+   r = requests.post(url, data=text, params=request_params)
+   print(r.json())
    ```
 
-   output: `...`
+   output: `{u'sentences': [{u'0': {u'namedNodes': [], u'match': u'(NP (NNP Pusheen)\n  (CC and)\n  (NNP Smitha))\n'}}]}`
 
 6. using Stanford CoreNLP from NLTK
 
