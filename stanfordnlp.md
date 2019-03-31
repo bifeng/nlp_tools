@@ -1,3 +1,11 @@
+more refer:
+
+http://fancyerii.github.io/2019/02/26/stanfordnlp/
+
+
+
+
+
 https://github.com/stanfordnlp/stanfordnlp
 
 Chinese (traditional)  [download](http://nlp.stanford.edu/software/conll_2018/zh_gsd_models.zip) 0.1.0 
@@ -62,6 +70,115 @@ maybe have to replaced the Chinese punctuation with its Unicode formats: `[.\u30
 #### encoding problem
 
 https://github.com/stanfordnlp/stanfordnlp/issues/53
+
+
+
+### update
+
+client.py
+
+```python
+class CoreNLPClient(RobustService):
+...
+	def update(self, doc, annotators=None, properties=None):
+        if properties is None:
+            properties = self.default_properties
+            properties.update({
+                'annotators': ','.join(annotators or self.default_annotators),
+                'inputFormat': 'serialized',
+                'outputFormat': 'serialized',
+                'serializer': 'edu.stanford.nlp.pipeline.ProtobufAnnotationSerializer'
+            })
+```
+
+
+
+### tokensregex/semgrex/tregrex/__regex
+
+https://nlp.stanford.edu/software/tokensregex.html
+
+client.py
+
+```python
+class CoreNLPClient(RobustService):
+...
+    def tokensregex(self, text, pattern, filter=False, to_words=False, annotators=None, properties=None):
+        # this is required for some reason
+        matches = self.__regex('/tokensregex', text, pattern, filter, annotators, properties)
+        if to_words:
+            matches = regex_matches_to_indexed_words(matches)
+        return matches
+
+    def semgrex(self, text, pattern, filter=False, to_words=False, annotators=None, properties=None):
+        matches = self.__regex('/semgrex', text, pattern, filter, annotators, properties)
+        if to_words:
+            matches = regex_matches_to_indexed_words(matches)
+        return matches
+
+    def tregrex(self, text, pattern, filter=False, annotators=None, properties=None):
+        return self.__regex('/tregex', text, pattern, filter, annotators, properties)
+
+    def __regex(self, path, text, pattern, filter, annotators=None, properties=None):
+        """Send a regex-related request to the CoreNLP server.
+        :param (str | unicode) path: the path for the regex endpoint
+        :param text: raw text for the CoreNLPServer to apply the regex
+        :param (str | unicode) pattern: regex pattern
+        :param (bool) filter: option to filter sentences that contain matches, if false returns matches
+        :param properties: option to filter sentences that contain matches, if false returns matches
+        :return: request result
+        """
+        ...
+```
+
+
+
+### regexner
+
+https://stanfordnlp.github.io/CoreNLP/ner.html#regexner-rules-format
+
+https://stanfordnlp.github.io/CoreNLP/ner.html#customizing-the-fine-grained-ner
+
+[How to manage a label with more than one type in regexner](https://github.com/stanfordnlp/CoreNLP/issues/428)
+
+refer:
+
+https://github.com/stanfordnlp/CoreNLP/issues/495
+
+
+
+Overwritten the default result by regexner:
+
+Here is an example entry:
+
+```
+london CITY LOCATION 1
+```
+
+The third column means that LOCATION tags can be overwritten as CITY. 
+
+
+
+### ner
+
+https://nlp.stanford.edu/software/crf-faq.html
+
+
+
+### segmenter
+
+https://nlp.stanford.edu/software/segmenter-faq.html
+
+
+
+### annotator dependencies
+
+https://stanfordnlp.github.io/CoreNLP/annotators.html#annotator-dependencies
+
+
+
+### dedicated-server
+
+https://stanfordnlp.github.io/CoreNLP/corenlp-server.html#dedicated-server
 
 
 
@@ -187,6 +304,12 @@ url = "http://localhost:9000/shutdown?"
 shutdown_key = getoutput("type C:/Users/登录用户~1/AppData/Local/Temp/corenlp.shutdown")
 r = requests.post(url,data="",params={"key": shutdown_key})
 ```
+
+
+
+### Batching To Maximize Pipeline Speed
+
+https://github.com/stanfordnlp/stanfordnlp
 
 
 
